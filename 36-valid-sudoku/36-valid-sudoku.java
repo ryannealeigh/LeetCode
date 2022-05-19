@@ -18,13 +18,12 @@ class Solution {
                 if (c == '.') {
                     continue;
                 }
-                if (!row[i].contains(c) && !col[j].contains(c) && !box[boxIdx].contains(c)) {
-                    row[i].add(c);
-                    col[j].add(c);
-                    box[boxIdx].add(c);
-                } else {
+                if (row[i].contains(c) || col[j].contains(c) || box[boxIdx].contains(c)) {
                     return false;
                 }
+                row[i].add(c);
+                col[j].add(c);
+                box[boxIdx].add(c);
             }
         }
         return true;
