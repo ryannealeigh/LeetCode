@@ -14,16 +14,15 @@ class Solution {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 int boxIdx = (i / 3) * 3 + (j / 3);
-                char c = board[i][j];
-                if (c == '.') {
+                if (board[i][j] == '.') {
                     continue;
                 }
-                if (row[i].contains(c) || col[j].contains(c) || box[boxIdx].contains(c)) {
+                if (row[i].contains(board[i][j]) || col[j].contains(board[i][j]) || box[boxIdx].contains(board[i][j])) {
                     return false;
                 }
-                row[i].add(c);
-                col[j].add(c);
-                box[boxIdx].add(c);
+                row[i].add(board[i][j]);
+                col[j].add(board[i][j]);
+                box[boxIdx].add(board[i][j]);
             }
         }
         return true;
