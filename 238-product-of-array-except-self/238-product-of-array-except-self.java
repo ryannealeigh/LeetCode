@@ -1,6 +1,7 @@
 class Solution {
     // can't divide so we need to compute prefix and suffix products
-    // the result array doesn't count as extra space, so we can store our data there
+    // the result array doesn't count as extra space, so we can temporarily
+    // store our data there
     
     public int[] productExceptSelf(int[] nums) {
         int[] result = new int[nums.length];
