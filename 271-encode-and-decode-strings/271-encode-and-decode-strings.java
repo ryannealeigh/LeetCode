@@ -3,12 +3,8 @@ public class Codec {
     // Encodes a list of strings to a single string.
     public String encode(List<String> strs) {
         StringBuilder encoded = new StringBuilder();
-        // encoded.append(strs.size());
-        for (int i = 0; i < strs.size(); i++) {
-            encoded.append(strs.get(i));
-            if (i < strs.size() - 1) {
-                encoded.append("BBRREEAAKK");
-            }
+        for (String str : strs) {
+            encoded.append(str.length() + "#" + str);
         }
         
         return encoded.toString();
@@ -16,14 +12,28 @@ public class Codec {
 
     // Decodes a single string to a list of strings.
     public List<String> decode(String s) {
-        ArrayList<String> result = new ArrayList<>();
-        // int n = Integer.parseInt(s.substring(0, 1));
-        // s = s.substring(1);
-        String[] split = s.split("BBRREEAAKK", -1);
-        
-        for (String str : split) {
-            result.add(str);
+        int i = 0;
+        List<String> result = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+
+        while (i < s.length()) {
+            int j = i;
+            while (s.charAt(j) != '#') {
+                j++;
+            }
+            int stringLength = Integer.parseInt(s.substring(i, j));
+            i = j + 1;
+            
+            int current = i;
+            
+            while (current < i + stringLength) {
+                sb.append(s.charAt(current++));
+            }
+            result.add(sb.toString());
+            sb.setLength(0);
+            i = current;
         }
+        
         return result;
     }
 }
