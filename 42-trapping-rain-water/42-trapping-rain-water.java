@@ -3,17 +3,18 @@ class Solution {
         int maxLeft = 0, maxRight = 0;
         int left = 0, right = height.length - 1;
         int sum = 0;
+        int val = 0;
         
         while (left <= right) {
             if (maxLeft <= maxRight) {
-                int val = maxLeft - height[left];
+                val = maxLeft - height[left];
                 if (val > 0) {
                     sum += val;
                 }
                 maxLeft = Math.max(maxLeft, height[left]);
                 left++;
             } else {
-                int val = maxRight - height[right];
+                val = maxRight - height[right];
                 if (val > 0) {
                     sum += val;
                 }
