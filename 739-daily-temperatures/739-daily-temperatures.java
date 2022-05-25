@@ -7,8 +7,9 @@ class Solution {
 
         for (int i = temperatures.length - 1; i >= 0; i--) {
             int currentTemp = temperatures[i];
-            hottest = Math.max(hottest, currentTemp);
-            if (hottest == currentTemp) {
+
+            if (hottest <= currentTemp) {
+                hottest = currentTemp;
                 continue;
             }
             
