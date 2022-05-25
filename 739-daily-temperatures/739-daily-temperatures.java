@@ -1,21 +1,29 @@
 class Solution {
+
     public int[] dailyTemperatures(int[] temperatures) {
-        // next greatest element for each element
-        ArrayDeque<Integer> stack = new ArrayDeque<>();
         int[] result = new int[temperatures.length];
-        
+        int hottest = 0;
+        int count;
+
         for (int i = temperatures.length - 1; i >= 0; i--) {
-            while (!stack.isEmpty() && temperatures[i] >= temperatures[stack.peek()]) {
-                stack.pop();
-            }
-            if (stack.isEmpty()) {
+            int currentTemp = temperatures[i];
+            hottest = Math.max(hottest, currentTemp);
+            count = 1;
+            if (hottest == currentTemp) {
                 result[i] = 0;
             } else {
-                result[i] = stack.peek() - i;
+                while (i + count < temperatures.length && temperatures[i + count] <= currentTemp) {
+                    if (result[i + count] == 0) {
+                        count = 0;
+                        break;
+                    }
+                    count += result[i + count];
+                }
+                result[i] = count;
             }
-            stack.push(i);
+            
         }
-        
+
         return result;
     }
 }
