@@ -6,15 +6,13 @@ class Solution {
         int count;
 
         for (int i = temperatures.length - 1; i >= 0; i--) {
-            int currentTemp = temperatures[i];
-
-            if (hottest <= currentTemp) {
-                hottest = currentTemp;
+            if (hottest <= temperatures[i]) {
+                hottest = temperatures[i];
                 continue;
             }
             
             count = 1;
-            while (temperatures[i + count] <= currentTemp) {
+            while (temperatures[i + count] <= temperatures[i]) {
                 count += result[i + count];
             }
             result[i] = count;
