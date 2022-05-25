@@ -9,7 +9,7 @@ class MinStack {
         if (stack.isEmpty()) {
             stack.push(List.of(val, val));
         } else {
-            stack.push(List.of(val, Math.min(getMin(), val)));
+            stack.push(List.of(val, Math.min(stack.peek().get(1), val)));
         }
     }
     
