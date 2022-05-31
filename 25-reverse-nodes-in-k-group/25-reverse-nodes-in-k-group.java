@@ -42,6 +42,7 @@ class Solution {
     private ListNode reverseGroup(ListNode head, int k) {
         ListNode prev = null;
         ListNode temp = null;
+        ListNode last = head;
 
         for (int i = 0; i < k; i++) {
             temp = head.next;
@@ -50,11 +51,7 @@ class Solution {
             head = temp;
         }
         
-        temp = prev;
-        for (int i = 0; i < k - 1; i++) {
-            temp = temp.next;
-        }
-        temp.next = head;
+        last.next = head;
         
         return prev;
     }
