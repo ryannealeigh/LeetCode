@@ -31,7 +31,6 @@ class Solution {
             tail.next = reversed;
 
             tail = last;
-            
             groupCount++;
         }
         
