@@ -9,34 +9,33 @@
  * }
  */
 class Solution {
+
     public ListNode reverseKGroup(ListNode head, int k) {
         int totalNodes = 0;
         ListNode ptr = head;
-        
+
         while (ptr != null) {
             totalNodes++;
             ptr = ptr.next;
         }
-        
+
         int groups = totalNodes / k;
         int groupCount = 0;
-        
+
         ListNode dummy = new ListNode(0);
         ListNode tail = dummy;
         tail.next = head;
 
         while (groupCount < groups) {
             ListNode last = tail.next;
-            ListNode reversed = reverseGroup(tail.next, k);
-            tail.next = reversed;
-
+            tail.next = reverseGroup(tail.next, k);
             tail = last;
             groupCount++;
         }
-        
+
         return dummy.next;
     }
-    
+
     private ListNode reverseGroup(ListNode head, int k) {
         ListNode prev = null;
         ListNode temp = null;
@@ -48,9 +47,9 @@ class Solution {
             prev = head;
             head = temp;
         }
-        
+
         last.next = head;
-        
+
         return prev;
     }
 }
