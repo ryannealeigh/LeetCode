@@ -10,24 +10,44 @@
  */
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
-        PriorityQueue<ListNode> heap = new PriorityQueue<>((a, b) -> Integer.compare(a.val, b.val));
-        ListNode head = new ListNode(0);
-        ListNode curr = head;
+        int n = lists.length;
+        int interval = 1;
         
-        for (ListNode list : lists) {
-            if (list != null) {
-                heap.add(list);
+        while (interval < n) {
+            for (int i = 0; i < n - interval; i += interval * 2) {
+                ListNode l1 = lists[i];
+                ListNode l2 = i + 1 < n ? lists[i + interval] : null;
+
+                lists[i] = mergeLists(l1, l2);
+            }
+            interval *= 2;
+        }
+        if (n > 0) return lists[0];
+        return null;
+    }
+    
+    private ListNode mergeLists(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+        
+        while (l1 != null && l2 != null) {
+            if (l1.val <= l2.val) {
+                curr.next = l1;
+                curr = curr.next;
+                l1 = l1.next;
+            } else {
+                curr.next = l2;
+                curr = curr.next;
+                l2 = l2.next;
             }
         }
         
-        while (!heap.isEmpty()) {
-            curr.next = heap.poll();
-            curr = curr.next;
-            if (curr.next != null) {
-                heap.add(curr.next);
-            }
+        if (l1 == null) {
+            curr.next = l2;
+        } else {
+            curr.next = l1;
         }
         
-        return head.next;
+        return dummy.next;
     }
 }
