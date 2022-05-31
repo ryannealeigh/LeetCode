@@ -26,12 +26,11 @@ class Solution {
         tail.next = head;
 
         while (groupCount < groups) {
+            ListNode last = tail.next;
             ListNode reversed = reverseGroup(tail.next, k);
             tail.next = reversed;
 
-            for (int i = 0; i < k; i++) {
-                tail = tail.next;
-            }
+            tail = last;
             
             groupCount++;
         }
