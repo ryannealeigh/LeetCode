@@ -16,30 +16,21 @@ public class Codec {
             return tree.toString();
         }
 
-        ArrayDeque<TreeNode> queue = new ArrayDeque<>();
+        String separator = ",";
+        String n = "N";
+        LinkedList<TreeNode> queue = new LinkedList<>();
         queue.add(root);
         
         while (!queue.isEmpty()) {
             TreeNode node = queue.poll();
             
-            if (node.val == Integer.MAX_VALUE) {
-                tree.append("null#");
-                continue;
-            } else {
-                tree.append(node.val + "#");
-            }
-            
-            if (node.left == null) {
-                queue.add(new TreeNode(Integer.MAX_VALUE));
-            } else {
+            if (node != null) {
+                tree.append(node.val + separator);
                 queue.add(node.left);
-            }
-            if (node.right == null) {
-                queue.add(new TreeNode(Integer.MAX_VALUE));
-            } else {
                 queue.add(node.right);
+            } else {
+                tree.append(n + separator);
             }
-            
         }
         return tree.toString();
     }
@@ -49,7 +40,7 @@ public class Codec {
         System.out.println(data);
         if (data.length() == 0) return null;
 
-        String[] split = data.split("#");
+        String[] split = data.split(",");
         
         int i = 0;
         TreeNode root = new TreeNode(Integer.parseInt(split[i++]));
@@ -59,14 +50,14 @@ public class Codec {
         
         while (!queue.isEmpty()) {
             TreeNode node = queue.poll();
-            if (!split[i].equals("null")) {
+            if (!split[i].equals("N")) {
                 int val = Integer.parseInt(split[i]);
                 node.left = new TreeNode(val);
             }
             i++;
             if (node.left != null) queue.add(node.left);
             
-            if (!split[i].equals("null")) {
+            if (!split[i].equals("N")) {
                 int val = Integer.parseInt(split[i]);
                 node.right = new TreeNode(val);
             }
