@@ -27,14 +27,16 @@ class Solution {
         int left = dfs(root.left);
         int right = dfs(root.right);
         
-        max = Math.max(max, root.val + left + right);
         int maxChild = Math.max(left, right);
+        
+        max = Math.max(max, root.val + left + right);
         max = Math.max(max, root.val + maxChild);
+        max = Math.max(max, root.val);
+
         if (maxChild < 0) {
-            max = Math.max(max, root.val);
             return root.val;
         }
         
-        return Math.max(left, right) + root.val;
+        return maxChild + root.val;
     }
 }
