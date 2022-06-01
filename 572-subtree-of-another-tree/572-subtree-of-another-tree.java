@@ -22,9 +22,8 @@ class Solution {
     
     private boolean sameTree(TreeNode root, TreeNode subroot) {
         if (root == null && subroot == null) return true;
-        if (root != null && subroot != null && root.val == subroot.val) {
-            return sameTree(root.left, subroot.left) && sameTree(root.right, subroot.right);
-        }
-        return false;
+        if (root == null || subroot == null || root.val != subroot.val) return false;
+        
+        return sameTree(root.left, subroot.left) && sameTree(root.right, subroot.right);
     }
 }
