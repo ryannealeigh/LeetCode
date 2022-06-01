@@ -25,12 +25,14 @@ public class Codec {
             TreeNode node = queue.poll();
             
             if (node != null) {
-                tree.append(node.val + separator);
+                tree.append(node.val);
                 queue.add(node.left);
                 queue.add(node.right);
             } else {
-                tree.append(n + separator);
+                tree.append(n);
             }
+            tree.append(separator);
+
         }
         return tree.toString();
     }
