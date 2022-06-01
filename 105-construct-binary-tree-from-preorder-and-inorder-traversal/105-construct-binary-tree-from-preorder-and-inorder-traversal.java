@@ -20,10 +20,8 @@ class Solution {
         for (int i = 0; i < inorder.length; i++) {
             map.put(inorder[i], i);
         }
-        
-        int n = preorder.length;
-        
-        return makeTree(preorder, map, 0, n - 1);
+                
+        return makeTree(preorder, map, 0, preorder.length - 1);
     }
     
     private TreeNode makeTree(int[] preorder, HashMap<Integer, Integer> map, int left, int right) {
