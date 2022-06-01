@@ -14,23 +14,20 @@
  * }
  */
 class Solution {
-    int kth;
-    
     public int kthSmallest(TreeNode root, int k) {
-        dfs(root, k, 0);
-        return kth;
-    }
-    
-    private int dfs(TreeNode root, int k, int count) {
-        if (root == null) {
-            return count;
-        }
+        ArrayDeque<TreeNode> stack = new ArrayDeque<>();
         
-        count = dfs(root.left, k, count);
-        count++;
-        if (count == k) {
-            kth = root.val;
+        while (true) {
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            
+            root = stack.pop();
+            if (--k == 0) {
+                return root.val;
+            }
+            root = root.right;
         }
-        return dfs(root.right, k, count);
     }
 }
