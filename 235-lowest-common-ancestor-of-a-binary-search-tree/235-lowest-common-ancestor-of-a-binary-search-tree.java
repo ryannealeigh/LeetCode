@@ -9,24 +9,14 @@
  */
 
 class Solution {
-    TreeNode lca = null;
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        dfs(root, p, q);
-        return lca;
-    }
-    
-    private boolean dfs(TreeNode root, TreeNode p, TreeNode q) {
-        if (root == null) {
-            return false;
+        if (p.val < root.val && q.val < root.val) {
+            // go left
+            return lowestCommonAncestor(root.left, p, q);
+        } else if (p.val > root.val && q.val > root.val) {
+            return lowestCommonAncestor(root.right, p, q);
+        } else {
+            return root;
         }
-        boolean left = dfs(root.left, p, q);
-        boolean right = dfs(root.right, p, q);
-        boolean current = root == p || root == q;
-
-        if (left && right || left && current || right && current) {
-            lca = root;
-        }
-        
-        return current || left || right;
     }
 }
