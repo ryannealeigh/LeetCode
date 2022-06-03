@@ -21,13 +21,10 @@ class Solution {
                     return count;
                 }
 
-                for (int j = 0; j < deltaRow.length; j++) {
-                    int newRow = row + deltaRow[j];
-                    int newCol = col + deltaCol[j];
-                    
-                    if (!visited[newRow + 302][newCol + 302]) {
-                        visited[newRow + 302][newCol + 302] = true;
-                        queue.add(List.of(newRow, newCol));
+                for (int j = 0; j < deltaRow.length; j++) {                    
+                    if (!visited[row + deltaRow[j] + 302][col + deltaCol[j] + 302]) {
+                        visited[row + deltaRow[j] + 302][col + deltaCol[j] + 302] = true;
+                        queue.add(List.of(row + deltaRow[j], col + deltaCol[j]));
                     }
                 }
             }
