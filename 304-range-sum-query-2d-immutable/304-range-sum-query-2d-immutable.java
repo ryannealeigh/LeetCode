@@ -23,8 +23,7 @@ class NumMatrix {
         
         for (int i = 1; i < m; i++) {
             for (int j = 1; j < n; j++) {
-                int sum = cache[i][j + 1] + cache[i + 1][j] + matrix[i][j] - cache[i][j];
-                cache[i + 1][j + 1] = sum;
+                cache[i + 1][j + 1] = cache[i][j + 1] + cache[i + 1][j] + matrix[i][j] - cache[i][j];
             }
         }
     }
