@@ -31,18 +31,8 @@ class NumMatrix {
         }
     }
     
-    public int sumRegion(int row1, int col1, int row2, int col2) {
-        row1++;
-        row2++;
-        col1++;
-        col2++;
-        int totalSum = cache[row2][col2];
-        int leftSum = cache[row2][col1 - 1];
-        int topSum = cache[row1 - 1][col2];
-        int diagonalSum = cache[row1 - 1][col1 - 1];
-        
-        int sum = totalSum - leftSum - topSum + diagonalSum;
-        return sum;
+    public int sumRegion(int row1, int col1, int row2, int col2) {        
+        return cache[row2 + 1][col2 + 1] - cache[row2 + 1][col1] - cache[row1][col2 + 1] + cache[row1][col1];
     }
 }
 
