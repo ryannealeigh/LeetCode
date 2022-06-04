@@ -1,6 +1,7 @@
 class Solution {
 
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        Arrays.sort(candidates);
         HashSet<List<Integer>> results = new HashSet<>();
         int n = candidates.length;
         ArrayList<Integer> sums = new ArrayList<>();
