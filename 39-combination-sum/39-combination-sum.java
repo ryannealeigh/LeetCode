@@ -1,46 +1,29 @@
 class Solution {
 
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> results = new ArrayList<>();
+        
         Arrays.sort(candidates);
-        HashSet<List<Integer>> results = new HashSet<>();
-        int n = candidates.length;
-        ArrayList<Integer> sums = new ArrayList<>();
-        
-        for (int i = 0; i < n; i++) {
-            backtrack(candidates, i, 0, sums, results, target);
-        }
-        
-        Iterator<List<Integer>> iter = results.iterator();
-        
-        List<List<Integer>> result = new ArrayList<>();
-        while (iter.hasNext()) {
-            result.add(iter.next());
-        }
-        
-        return result;
+        backtrack(candidates, 0, 0, new ArrayList<Integer>(), results, target);
+                
+        return results;
     }
     
-    private void backtrack(int[] candidates, int i, int sum, ArrayList<Integer> sums, HashSet<List<Integer>> results, int target) {    
+    private void backtrack(int[] candidates, int i, int sum, ArrayList<Integer> curr, List<List<Integer>> results, int target) {    
         if (sum == target) {
-            results.add(new ArrayList<Integer>(sums));
+            results.add(new ArrayList<Integer>(curr));
             return;
         }
-        if (i == candidates.length) {
-            if (sum == target) {
-                results.add(new ArrayList<Integer>(sums));
-            } 
+        if (i == candidates.length || sum > target) {
             return;
         }
         
         // choose candidates[i]
-        int val = candidates[i];
-        if (sum + val <= target) {
-            sums.add(val);
-            backtrack(candidates, i, sum + val, sums, results, target);
-            sums.remove(sums.size() - 1);
-        }
+        curr.add(candidates[i]);
+        backtrack(candidates, i, sum + candidates[i], curr, results, target);
+        curr.remove(curr.size() - 1);
         
         // don't choose candidates[i] and move i forward
-        backtrack(candidates, i + 1, sum, sums, results, target);
+        backtrack(candidates, i + 1, sum, curr, results, target);
     }
 }
