@@ -30,14 +30,13 @@ class Solution {
     
     private boolean isSafe(char[][] board, int row, int col, int n) {      
         // check column, decrement row only
-
         for (int newRow = row - 1; newRow >= 0; newRow--) {
             if (board[newRow][col] == 'Q') {
                 return false;
             }
         }
 
-        
+        // check left diagonal
         for (int newRow = row - 1, newCol = col - 1; newRow >= 0 && newCol >= 0; newRow--, newCol--) {               
             if (board[newRow][newCol] == 'Q') {
                 return false;
