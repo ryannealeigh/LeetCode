@@ -3,9 +3,7 @@ class Solution {
     public int minSwaps(int[] data) {
         int count = 0;
         for (int i : data) {
-            if (i == 1) {
-                count++;
-            }
+            count += i;
         }
         
         if (count == 0) {
