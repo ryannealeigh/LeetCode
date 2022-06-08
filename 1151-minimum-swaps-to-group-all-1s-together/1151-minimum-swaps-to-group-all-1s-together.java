@@ -8,9 +8,7 @@ class Solution {
         
         if (count == 0) {
             return 0;
-        }
-        
-        if (count <= 2) {
+        } else if (count <= 2) {
             return count - 1;
         }
         int min = Integer.MAX_VALUE;
