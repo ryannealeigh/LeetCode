@@ -20,17 +20,10 @@ class Solution {
         int currentCount = 0;
         int start = 0;
         for (int i = 0; i < data.length; i++) {
-            if (data[i] == 1) {
-                currentCount++;
-            }
-
+            currentCount += data[i];
             if (i >= count - 1) {
-                int diff = count - currentCount;
-                min = Math.min(min, diff);
-
-                if (data[start++] == 1) {
-                    currentCount--;
-                }
+                min = Math.min(min, count - currentCount);
+                currentCount -= data[start++];
             }
         }
 
