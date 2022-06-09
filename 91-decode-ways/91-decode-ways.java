@@ -1,29 +1,32 @@
 class Solution {
     public int numDecodings(String s) {
-        char[] str = s.toCharArray();
-        if (str[0] == '0') {
+        if (s.charAt(0) == '0') {
             return 0;
         }
         
         int n = s.length();
-        int[] dp = new int[n + 1];
-        dp[0] = 1;
-        dp[1] = 1;
-        
+
+        int one = 1;
+        int two = 1;
+        int next;
         for (int i = 1; i < n; i++) {
-            if (str[i] == '0' && str[i - 1] > '2') {
+            next = 0;
+            if (s.charAt(i) == '0' && s.charAt(i - 1) > '2') {
                 return 0;
             }
 
-            if (str[i] != '0') {
-                dp[i + 1] += dp[i];
+            if (s.charAt(i) != '0') {
+                next += two;
             }
             
-            if (str[i - 1] == '1' || (str[i - 1] == '2' && str[i] <= '6')) {
-                dp[i + 1] += dp[i - 1];
-            } 
+            if (s.charAt(i - 1) == '1' || (s.charAt(i - 1) == '2' && s.charAt(i) <= '6')) {
+                next += one;
+            }
+            
+            one = two;
+            two = next;
         }
         
-        return dp[n];
+        return two;
     }
 }
