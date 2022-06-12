@@ -12,7 +12,7 @@ class Solution {
             sum += current;
             counts.put(current, counts.getOrDefault(current, 0) + 1);
             
-            while (counts.get(current) > 1) {
+            while (start < i && counts.get(current) > 1) {
                 int si = nums[start];
                 sum -= si;
                 start++;
