@@ -3,55 +3,39 @@
 class Node {
     public int val;
     public List<Node> neighbors;
-    public Node() {
-        val = 0;
-        neighbors = new ArrayList<Node>();
-    }
-    public Node(int _val) {
-        val = _val;
-        neighbors = new ArrayList<Node>();
-    }
-    public Node(int _val, ArrayList<Node> _neighbors) {
+
+    public Node() {}
+
+    public Node(int _val,List<Node> _neighbors) {
         val = _val;
         neighbors = _neighbors;
     }
-}
+};
 */
-
 class Solution {
+    private HashMap <Node, Node> visited = new HashMap <> ();
     public Node cloneGraph(Node node) {
-        // look at each of the old nodes
-        // create clone of the node in hashmap,
-        // retrieve the new cloned node
-        HashMap<Node, Node> map = new HashMap<>();
-        HashSet<Node> visited = new HashSet<>();
-        
-        return copy(node, map, visited);
-    }
-    
-    private Node copy(Node node, HashMap<Node, Node> map, HashSet<Node> visited) {
         if (node == null) {
-            return null;
+            return node;
         }
-        
-        visited.add(node);
-        
-        if (!map.containsKey(node)) {
-            map.put(node, new Node(node.val));
+
+        // If the node was already visited before.
+        // Return the clone from the visited dictionary.
+        if (visited.containsKey(node)) {
+            return visited.get(node);
         }
-        
-        Node clone = map.get(node);
-        for (Node neighbor : node.neighbors) {
-            if (!map.containsKey(neighbor)) {
-                map.put(neighbor, new Node(neighbor.val));
-            }
-            Node neighborClone = map.get(neighbor);
-            clone.neighbors.add(neighborClone);
-            if (!visited.contains(neighbor)) {
-                copy(neighbor, map, visited);
-            }
+
+        // Create a clone for the given node.
+        // Note that we don't have cloned neighbors as of now, hence [].
+        Node cloneNode = new Node(node.val, new ArrayList());
+        // The key is original node and value being the clone node.
+        visited.put(node, cloneNode);
+
+        // Iterate through the neighbors to generate their clones
+        // and prepare a list of cloned neighbors to be added to the cloned node.
+        for (Node neighbor: node.neighbors) {
+            cloneNode.neighbors.add(cloneGraph(neighbor));
         }
-        
-        return clone;
+        return cloneNode;
     }
 }
