@@ -1,20 +1,4 @@
 class Solution {
-    /*
-        keep counter "count"
-        keep 2d array "visited"
-        for each starting position
-            if value == 1 && not already visited
-                call dfs()
-                increment count
-        
-        return count
-            
-        dfs()
-            mark current as visited
-            for each direction (up, down, left, right)
-                if value == 1 and not already in visited
-                    call dfs()
-    */
     int rows;
     int cols;
     char[][] grid;
