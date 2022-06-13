@@ -4,19 +4,20 @@ class Solution {
             return true;
         }
         int i = 0, j = 0;
-        
+        StringBuilder num = new StringBuilder();
         while (i < word.length() && j < abbr.length()) {
-            String num = "";
+            num.setLength(0);
             while (j < abbr.length() && abbr.charAt(j) >= '0' && abbr.charAt(j) <= '9') {
-                num += abbr.charAt(j++);
+                num.append(abbr.charAt(j++));
             }
 
             if (num.length() > 0) {
-                if (num.charAt(0) == '0') {
+                String nums = num.toString();
+                if (nums.charAt(0) == '0') {
                     return false;
                 }
 
-                i += Integer.parseInt(num);
+                i += Integer.parseInt(nums);
 
                 continue;
             }
