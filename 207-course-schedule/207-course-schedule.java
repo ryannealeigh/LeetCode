@@ -21,8 +21,11 @@ class Solution {
             }
         }
         
+        int coursesCompleted = 0;
+        
         while (!queue.isEmpty()) {
             int currentCourse = queue.poll();
+            coursesCompleted++;
             
             if (parentsMap.containsKey(currentCourse)) {
                 for (int child : parentsMap.get(currentCourse)) {
@@ -34,10 +37,8 @@ class Solution {
             }
         }
         
-        for (Integer i : counts.keySet()) {
-            if (counts.get(i) != 0) {                   // add all nodes with 0 parents to queue
-                return false;
-            }
+        if (coursesCompleted < numCourses){
+            return false;
         }
         return true;
     }
