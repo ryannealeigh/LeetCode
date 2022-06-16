@@ -3,15 +3,15 @@ class Solution {
         int write = 0;
         int nonZero = 0;
         
-        for (int num : nums) {
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i];
             if (num != 0) {
-                nums[write++] = num;
-                nonZero++;
+                nums[write] = num;
+                if (write != i) {
+                    nums[i] = 0;
+                }
+                write++;
             }
-        }
-                
-        for (int i = nums.length - 1; i >= nonZero; i--) {
-            nums[i] = 0;
         }
     }
 }
