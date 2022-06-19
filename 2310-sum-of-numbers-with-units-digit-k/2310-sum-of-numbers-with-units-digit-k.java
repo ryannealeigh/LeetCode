@@ -1,28 +1,18 @@
-class Solution {
-    public int minimumNumbers(int num, int k) {
-        List<Integer> list = new ArrayList<>();
-        for(int i = k; i <= num; i += 10){
-            list.add(i);
-        }
+class Solution
+{
+    public int minimumNumbers(int num, int k)
+    {
+        if(num == 0)
+            return 0;
+        if(k == 0)
+            if(num % 10 == 0) //E.g. 20,1590,3000
+                return 1;
+            else
+                return -1;
+        for(int i = 1; i <= num/k; i++) // Start with set size 1 and look for set having unit's digit equal to that of num
+            if(num % 10 == ((i*k)%10)) // Look for equal unit's digit
+                return i;
         
-        int[] dp = new int[num + 1];
-        Arrays.fill(dp, -1);
-        
-        dp[0] = 0;
-        
-        for(int i = 1; i < num + 1; i++){
-            for(Integer x : list){
-                if(i - x >= 0 && dp[i-x] != -1){
-                    if(dp[i] == -1){
-                        dp[i] = 1 + dp[i-x];
-                    }else{
-                        dp[i] = Math.min(dp[i], 1 + dp[i-x]);
-                    }
-                }
-            }
-        }
-        
-        return dp[num];
+        return -1;
     }
-    
 }
