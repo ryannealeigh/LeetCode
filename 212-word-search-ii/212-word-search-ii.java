@@ -1,91 +1,77 @@
-class Solution {
-    TrieNode root;
+class TrieNode {
+    public HashMap<Character, TrieNode> children = new HashMap<Character, TrieNode>();
+    public String word = null;
+    public TrieNode() {}
+}
+
+class Solution {    
     int rows;
     int cols;
     char[][] board;
-    int maxLen;
-    int[][] deltas = new int[][]{{1,0},{0,1},{-1,0},{0,-1}};
+    List<String> result;
     boolean[][] visited;
-    
+        
     public List<String> findWords(char[][] board, String[] words) {
-        root = new TrieNode();
+        TrieNode root = new TrieNode();
+        for (String word : words) {
+            TrieNode node = root;
+            
+            for (char c : word.toCharArray()) {
+                if (node.children.containsKey(c))
+                    node = node.children.get(c);
+                else {
+                    TrieNode newNode = new TrieNode();
+                    node.children.put(c, newNode);
+                    node = newNode;
+                }
+            }
+            node.word = word;
+        }
+
+        result = new ArrayList<>();
         rows = board.length;
         cols = board[0].length;
         this.board = board;
-        maxLen = 0;
-        visited = new boolean[rows][cols];
+        visited = new boolean[board.length][board[0].length];
         
-        for (String word : words) {
-            add(word);
-            maxLen = Math.max(maxLen, word.length());
-        }
-        
-        List<String> result = new ArrayList<>();
-        HashSet<String> used = new HashSet<String>();
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
-                char c = board[row][col];
-                if (root.children[c - 'a'] != null) {
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(c);
-                    search(row, col, sb, root.children[c - 'a'], result, used);
-                }
+                if (root.children.containsKey(board[row][col]))
+                    search(row, col, root);
             }
         }
-        
         return result;
     }
     
-    private void search(int row, int col, StringBuilder sb, TrieNode curr, List<String> result, HashSet<String> used) {     
-        if (sb.length() > maxLen) {
-            return;
+    private void search(int row, int col, TrieNode parent) {
+        Character letter = board[row][col];
+        TrieNode currNode = parent.children.get(letter);
+
+        if (currNode.word != null) {
+            result.add(currNode.word);
+            currNode.word = null;
         }
         
+        // mark current letter as visited
         visited[row][col] = true;
         
-        if (curr.end && !used.contains(sb.toString())) {
-            String str = sb.toString();
-            result.add(str);
-            used.add(str);
-        }
+        // offsets
+        int[] deltaRow = new int[]{0,0,1,-1};
+        int[] deltaCol = new int[]{1,-1,0,0};
         
-        for (int i = 0; i < deltas.length; i++) {
-            int newRow = row + deltas[i][0];
-            int newCol = col + deltas[i][1];
-            
+        for (int i = 0; i < deltaRow.length; i++) {
+            int newRow = row + deltaRow[i];
+            int newCol = col + deltaCol[i];
             if (0 <= newRow && newRow < rows && 0 <= newCol && newCol < cols && !visited[newRow][newCol]) {
-                char c = board[newRow][newCol];
-                if (curr.children[c - 'a'] != null) {
-                    sb.append(board[newRow][newCol]);
-                    search(newRow, newCol, sb, curr.children[c - 'a'], result, used);
-                    sb.deleteCharAt(sb.length() - 1);
-                }
+                if (currNode.children.containsKey(board[newRow][newCol]))
+                    search(newRow, newCol, currNode);
             }
         }
         
         visited[row][col] = false;
-    }
-    
-    private void add(String word) {
-        TrieNode curr = root;
-        for (int i = 0; i < word.length(); i++) {
-            char c = word.charAt(i);
-            if (curr.children[c - 'a'] == null) {
-                curr.children[c - 'a'] = new TrieNode();
-            }
-            
-            curr = curr.children[c - 'a'];
-        }
         
-        curr.end = true;
-    }
-    
-    class TrieNode {
-        boolean end;
-        TrieNode[] children;
-        
-        public TrieNode() {
-            children = new TrieNode[26];
+        if (currNode.children.isEmpty()) {
+            parent.children.remove(letter);
         }
     }
 }
