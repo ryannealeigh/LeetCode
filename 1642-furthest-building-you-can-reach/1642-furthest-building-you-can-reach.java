@@ -7,11 +7,12 @@ class Solution {
         int totalDiff = 0;
         int kLargest = 0;
         for (i = 0; i < heights.length - 1; i++) {
-            if (heights[i] >= heights[i + 1]) {
+                int diff = heights[i + 1] - heights[i];
+
+            if (diff <= 0) {
                 continue;
             }
 
-            int diff = heights[i + 1] - heights[i];
             totalDiff += diff;
             kLargest += diff;
 
