@@ -8,17 +8,17 @@ class Solution {
         if (numRows == 1 || numRows >= s.length()) {
             return s;
         }
-        char[][] grid = new char[numRows][s.length()];
-        for (char[] row : grid) {
-            Arrays.fill(row, '-');
+        
+        List<StringBuilder> rows = new ArrayList<>();
+        for (int i = 0; i < numRows; i++) {
+            rows.add(new StringBuilder());
         }
-        int index = 0;
+        
         int row = 0;
-        int col = 0;
         boolean down = true;
         
-        while (index < s.length()) {
-            grid[row][col] = s.charAt(index++);
+        for (int i = 0; i < s.length(); i++) {
+            rows.get(row).append(s.charAt(i));
             if (down && row == numRows - 1) {
                 down = false;
             }
@@ -30,19 +30,13 @@ class Solution {
                 row++;
             } else {
                 row--;
-                col++;
             }
         }
         
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j] != '-') {
-                    sb.append(grid[i][j]);
-                }
-            }
+        for (int i = 1; i < rows.size(); i++) {
+            rows.get(0).append(rows.get(i));
         }
         
-        return sb.toString();
+        return rows.get(0).toString();
     }
 }
