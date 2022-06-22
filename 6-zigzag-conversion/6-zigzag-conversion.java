@@ -1,9 +1,5 @@
 class Solution {
     public String convert(String s, int numRows) {
-        // divide the numRows / 2 to get the number of columns between verticals
-        // so 1 col will handle numRows characters, then numRows / 2 will handle numRows / 2 characters
-        // so 1 "block" is numRows + (numRows / 2)
-        // we can divide s.length() / blockSize
 
         if (numRows == 1 || numRows >= s.length()) {
             return s;
