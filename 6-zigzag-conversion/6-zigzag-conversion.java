@@ -5,7 +5,7 @@ class Solution {
         // so 1 "block" is numRows + (numRows / 2)
         // we can divide s.length() / blockSize
 
-        if (numRows == 1) {
+        if (numRows == 1 || numRows >= s.length()) {
             return s;
         }
         char[][] grid = new char[numRows][s.length()];
