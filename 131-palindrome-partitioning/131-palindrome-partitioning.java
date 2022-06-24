@@ -1,9 +1,12 @@
 class Solution {
+    HashMap<String, Boolean> memo;
 
     public List<List<String>> partition(String s) {
         List<List<String>> result = new ArrayList<>();
-        search(0, s, new ArrayList<String>(), result);
+        memo = new HashMap<>();
 
+        search(0, s, new ArrayList<String>(), result);
+        
         return result;
     }
 
@@ -14,7 +17,10 @@ class Solution {
 
         for (int j = i + 1; j <= s.length(); j++) {
             String sub = s.substring(i, j);
-            if (isPalindrome(sub)) {
+            if (!memo.containsKey(sub)) {
+                memo.put(sub, isPalindrome(sub));
+            }
+            if (memo.get(sub)) {
                 curr.add(sub);
                 search(j, s, curr, result);
                 curr.remove(curr.size() - 1);
