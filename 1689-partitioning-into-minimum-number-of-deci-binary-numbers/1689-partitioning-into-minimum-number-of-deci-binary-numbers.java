@@ -3,8 +3,11 @@ class Solution {
         // determined by the largetst digit in the string
         
         int max = 0;
-        for (int i = 0; i < n.length(); i++) {
-            max = Math.max(max, Integer.parseInt(n.substring(i, i + 1)));
+        char[] chars = n.toCharArray();
+        
+        for (int i = 0; i < chars.length; i++) {
+            int val = Character.getNumericValue(chars[i]);
+            max = Math.max(max, val);
         }
         
         return max;
