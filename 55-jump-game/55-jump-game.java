@@ -4,6 +4,7 @@ class Solution {
         // for int j = 0 to nums[i]
         
         Boolean[] dp = new Boolean[nums.length];
+        dp[nums.length - 1] = true;
         return dfs(0, nums, dp);
     }
     
@@ -20,19 +21,18 @@ class Solution {
             return dp[index];
         }
         
-        boolean canReach = false;
-
         for (int i = 1; i <= nums[index]; i++) {
-            if (index + i > nums.length - 1) {
+            int nextPosition = index + i;
+            if (nextPosition > nums.length - 1) {
                 break;
             }
-            canReach |= dfs(index + i, nums, dp);
-            if (canReach) {
-                break;
+            if (dfs(nextPosition, nums, dp)) {
+                dp[nextPosition] = true;
+                return dp[nextPosition];
             }
         }
         
-        dp[index] = canReach;
-        return canReach;
+        dp[index] = false;
+        return false;
     }
 }
