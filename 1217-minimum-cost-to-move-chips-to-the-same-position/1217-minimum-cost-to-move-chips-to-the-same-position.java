@@ -11,10 +11,6 @@ class Solution {
             }
         }
         
-        if (countEven > countOdd) {
-            return countOdd;
-        } else {
-            return countEven;
-        }
+        return Math.min(countOdd, countEven);
     }
 }
