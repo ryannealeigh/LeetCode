@@ -1,18 +1,14 @@
 class Solution {
     public int maximumUnits(int[][] boxTypes, int truckSize) {
-        Arrays.sort(boxTypes, (a,b) -> Integer.compare(a[1], b[1]));
-        
-        int max = 0;
-        int i = boxTypes.length - 1;
-        while (truckSize > 0 && i >= 0) {
-            max += boxTypes[i][1];
-            boxTypes[i][0]--;
-            truckSize--;
-            if (boxTypes[i][0] == 0) {
-                i--;
-            }
+        Arrays.sort(boxTypes, (a, b) -> b[1] - a[1]);
+        int unitCount = 0;
+        for (int[] boxType : boxTypes) {
+            int boxCount = Math.min(truckSize, boxType[0]);
+            unitCount += boxCount * boxType[1];
+            truckSize -= boxCount;
+            if (truckSize == 0)
+                break;
         }
-        
-        return max;
+        return unitCount;
     }
 }
