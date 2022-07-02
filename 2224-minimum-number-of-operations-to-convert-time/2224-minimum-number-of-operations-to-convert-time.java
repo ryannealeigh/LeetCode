@@ -19,14 +19,7 @@ class Solution {
         if (currentMinutes + minuteDiff >= 60) {
             hourDiff--;
         }
-        
-        int remainder = 0;
-        if (minuteDiff / 60 == 1) {
-            result++;
-            remainder = minuteDiff % 60;
-            minuteDiff %= 60;
-        }
-        
+                
         result += minuteDiff / 60;
         minuteDiff %= 60;
         
