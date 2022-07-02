@@ -1,8 +1,6 @@
 class Solution {
 
     public String removeDigit(String number, char digit) {
-        
-        // remove first digit where next digit is greater else remove the last one
         StringBuilder a = new StringBuilder(number);
 
         boolean found = false;
@@ -15,7 +13,7 @@ class Solution {
                 }
             }
         }
-        
+
         if (!found) {
             for (int i = a.length() - 1; i >= 0; i--) {
                 if (a.charAt(i) == digit) {
@@ -23,8 +21,8 @@ class Solution {
                     break;
                 }
             }
-         }
-        
+        }
+
         return a.toString();
     }
 }
