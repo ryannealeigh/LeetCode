@@ -6,6 +6,8 @@ class Solution {
         int correctHour = Integer.parseInt(correct.substring(0, 2));
         
         int hourDiff = correctHour - currentHour;
+        
+        result += hourDiff;
                 
         int currentMinutes = Integer.parseInt(current.substring(3, 5));
         int correctMinutes = Integer.parseInt(correct.substring(3, 5));
@@ -17,7 +19,7 @@ class Solution {
         }
         
         if (currentMinutes + minuteDiff >= 60) {
-            hourDiff--;
+            result--;
         }
                 
         result += minuteDiff / 60;
@@ -30,7 +32,6 @@ class Solution {
         minuteDiff %= 5;
         
         result += minuteDiff;
-        result += hourDiff;
         
         return result;
     }
