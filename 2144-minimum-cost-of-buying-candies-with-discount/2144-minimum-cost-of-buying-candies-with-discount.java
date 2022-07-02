@@ -1,17 +1,25 @@
 class Solution {
-    public int minimumCost(int[] cost) {
-        Arrays.sort(cost);
+
+    public int minimumCost(int[] costs) {
+        int[] counts = new int[101];
+        
+        for (int cost : costs) {
+            counts[cost]++;
+        }
         
         int count = 0;
         int sum = 0;
-        for (int i = cost.length - 1; i >= 0; i--) {
-            count++;
-            if (count % 3 == 0) {
-                continue;
+        for (int i = 100; i >= 1; i--) {
+            while (counts[i] > 0) {
+                counts[i]--;
+                count++;
+                if (count % 3 == 0) {
+                    continue;
+                }
+                sum += i;
             }
-            sum += cost[i];
         }
-        
+
         return sum;
     }
 }
