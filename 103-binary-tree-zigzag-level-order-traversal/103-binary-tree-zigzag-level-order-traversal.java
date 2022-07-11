@@ -14,18 +14,15 @@
  * }
  */
 class Solution {
+
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        // bfs for level order
-        // add root to queue
-        // traverse queue in order adding children to queue
-        // traverse queue in reverse order adding children in reverse order
         if (root == null) {
             return List.of();
         }
         ArrayDeque<TreeNode> queue = new ArrayDeque<>();
         queue.add(root);
         List<List<Integer>> result = new ArrayList<>();
-        
+
         boolean forward = true;
         while (!queue.isEmpty()) {
             int n = queue.size();
@@ -45,9 +42,8 @@ class Solution {
             }
             forward = !forward;
             result.add(row);
-
         }
-        
+
         return result;
     }
 }
