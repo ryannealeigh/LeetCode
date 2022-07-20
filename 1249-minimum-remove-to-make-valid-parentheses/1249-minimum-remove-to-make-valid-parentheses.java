@@ -1,34 +1,35 @@
 class Solution {
-    public String minRemoveToMakeValid(String s) {        
-        ArrayDeque<Integer> stack = new ArrayDeque<>();
-        
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '(') {
-                stack.push(i);
-            }
-            if (s.charAt(i) == ')') {
-                if (!stack.isEmpty() && s.charAt(stack.peek()) == '(') {
-                    stack.pop();
-                } else {
-                    stack.push(i);
-                }
-            }
-        }
-        
-        if (stack.isEmpty()) {
-            return s;
-        }
-        
+
+    public String minRemoveToMakeValid(String s) {
+
+        // Pass 1: Remove all invalid ")"
         StringBuilder sb = new StringBuilder();
-        
-        for (int i = s.length() - 1; i >= 0; i--) {
-            if (!stack.isEmpty() && stack.peek() == i) {
-                stack.pop();
-                continue;
+        int openSeen = 0;
+        int balance = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '(') {
+                openSeen++;
+                balance++;
+            } if (c == ')') {
+                if (balance == 0) continue;
+                balance--;
             }
-            sb.insert(0, s.charAt(i));
+            sb.append(c);
         }
-        
-        return sb.toString();
+
+        // Pass 2: Remove the rightmost "("
+        StringBuilder result = new StringBuilder();
+        int openToKeep = openSeen - balance;
+        for (int i = 0; i < sb.length(); i++) {
+            char c = sb.charAt(i);
+            if (c == '(') {
+                openToKeep--;
+                if (openToKeep < 0) continue;
+            }
+            result.append(c);
+        }
+
+        return result.toString();
     }
 }
