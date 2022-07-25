@@ -13,15 +13,11 @@ class TicTacToe {
             return player;
         }
         
-        System.out.println(rowKey);
-        
         String colKey = col + "c" + player;
         counts.put(colKey, counts.getOrDefault(colKey, 0) + 1);
         if (counts.get(colKey) == n) {
             return player;
         }
-        
-        System.out.println(colKey);
 
         if (row == col) {
             String diagKey = "diag" + player;
@@ -29,8 +25,6 @@ class TicTacToe {
             if (counts.get(diagKey) == n) {
                 return player;
             }
-            
-            System.out.println(diagKey);
         }
         
         if (row + col == n - 1) {
@@ -39,8 +33,6 @@ class TicTacToe {
             if (counts.get(diagKey) == n) {
                 return player;
             }
-            
-            System.out.println(diagKey);
         }
 
         return 0;
