@@ -7,7 +7,6 @@ class Solution {
 
         String str = s.replace(" ", "");
         String[] split = str.split("(?=[-+*/])|(?<=[-+*/])");
-        System.out.println(Arrays.toString(split));
 
         ArrayDeque<String> stack = new ArrayDeque<>();
 
@@ -32,7 +31,6 @@ class Solution {
             }
         }
 
-        System.out.println(stack.toString());
         while (stack.size() > 1) {
             long prevLong = Long.parseLong(stack.pollFirst());
             String op = stack.pollFirst();
