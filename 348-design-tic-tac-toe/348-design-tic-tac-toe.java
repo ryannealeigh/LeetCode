@@ -1,40 +1,42 @@
 class TicTacToe {
     int n;
-    HashMap<String, Integer> counts = new HashMap<>();
-
+    int[] rows;
+    int[] cols;
+    int diag;
+    int anti;
+    
     public TicTacToe(int n) {
         this.n = n;
+        rows = new int[n];
+        cols = new int[n];
+        diag = 0;
+        anti = 0;
     }
 
     public int move(int row, int col, int player) {
-        String rowKey = row + "r" + player;
-        counts.put(rowKey, counts.getOrDefault(rowKey, 0) + 1);
-        if (counts.get(rowKey) == n) {
-            return player;
-        }
-        
-        String colKey = col + "c" + player;
-        counts.put(colKey, counts.getOrDefault(colKey, 0) + 1);
-        if (counts.get(colKey) == n) {
-            return player;
-        }
-
-        if (row == col) {
-            String diagKey = "diag" + player;
-            counts.put(diagKey, counts.getOrDefault(diagKey, 0) + 1);
-            if (counts.get(diagKey) == n) {
-                return player;
+        if (player == 1) {
+            rows[row]++;
+            cols[col]++;
+            if (row == col) {
+                diag++;
+            }
+            if (row + col == n - 1) {
+                anti++;
+            }
+        } else {
+            rows[row]--;
+            cols[col]--;
+            if (row == col) {
+                diag--;
+            }
+            if (row + col == n - 1) {
+                anti--;
             }
         }
         
-        if (row + col == n - 1) {
-            String diagKey = "anti" + player;
-            counts.put(diagKey, counts.getOrDefault(diagKey, 0) + 1);
-            if (counts.get(diagKey) == n) {
-                return player;
-            }
+        if (Math.abs(rows[row]) == n || Math.abs(cols[col]) == n || Math.abs(diag) == n || Math.abs(anti) == n) {
+            return player;
         }
-
         return 0;
     }
 }
