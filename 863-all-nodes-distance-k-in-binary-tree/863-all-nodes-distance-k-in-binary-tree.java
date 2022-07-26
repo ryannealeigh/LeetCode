@@ -9,25 +9,26 @@
  */
 class Solution {
     List<TreeNode> parents;
+
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
         // do bfs, we have to first find target and keep list of parent nodes up until target
-        
+
         parents = new ArrayList<>();
         if (root != target) {
             findTarget(root, target, new ArrayList<>());
         }
-        
+
         ArrayDeque<TreeNode> queue = new ArrayDeque<>();
         queue.add(target);
-        
+
         List<Integer> result = new ArrayList<>();
         HashSet<TreeNode> visited = new HashSet<>();
         int dist = -1;
         int parentPtr = parents.size() - 1;
-        
-        while (dist < k) {            
+
+        while (dist < k) {
             dist++;
-            
+
             int n = queue.size();
             for (int i = 0; i < n; i++) {
                 TreeNode curr = queue.poll();
@@ -49,10 +50,10 @@ class Solution {
                 }
             }
         }
-        
+
         return result;
     }
-    
+
     private void findTarget(TreeNode root, TreeNode target, List<TreeNode> currParents) {
         if (root == null) {
             return;
