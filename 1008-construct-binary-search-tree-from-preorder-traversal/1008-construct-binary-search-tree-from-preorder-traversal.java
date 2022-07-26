@@ -7,7 +7,7 @@ class Solution {
         idx = 0;
         this.preorder = preorder;
         n = preorder.length;
-        
+
         return helper(Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
