@@ -8,12 +8,20 @@ class Solution {
         }
 
         List<String> ans = new ArrayList();
-        search: for (String a: A) {
+        
+        for (String a: A) {
+            boolean universal = true;
             int[] aCount = count(a);
-            for (int i = 0; i < 26; ++i)
-                if (aCount[i] < bmax[i])
-                    continue search;
-            ans.add(a);
+            for (int i = 0; i < 26; ++i) {
+                if (aCount[i] < bmax[i]) {
+                    universal = false;
+                    break;
+                }
+            }
+            
+            if (universal) {
+                ans.add(a);
+            }
         }
 
         return ans;
